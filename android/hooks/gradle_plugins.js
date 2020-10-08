@@ -24,10 +24,10 @@ function init(logger, config, cli, appc) {
 
 			const projectBuildGradleContents = fs.readFileSync(projectBuildGradle, 'utf-8').toString();
 			const updatedProjectBuildGradleContents = projectBuildGradleContents
-				.split('dependencies {').join('dependencies {\n\t\tclasspath \'com.google.firebase:firebase-crashlytics-gradle:2.2.0\'');
+				.split('dependencies {').join('dependencies {\n\t\tclasspath \'com.google.firebase:firebase-crashlytics-gradle:2.3.0\'');
 
 			fs.writeFileSync(projectBuildGradle, updatedProjectBuildGradleContents);
-			
+
 			// 2. Extend app-wide build.gradle
 			const appBuildGradle = path.resolve('./build/android/app/build.gradle');
 			if (!fs.existsSync(appBuildGradle)) { return; }

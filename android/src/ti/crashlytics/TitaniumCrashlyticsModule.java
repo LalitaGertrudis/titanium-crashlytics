@@ -10,7 +10,7 @@ package ti.crashlytics;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-
+import org.appcelerator.kroll.KrollDict;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 @Kroll.module(name="TitaniumCrashlytics", id="ti.crashlytics")
@@ -30,9 +30,26 @@ public class TitaniumCrashlyticsModule extends KrollModule
 	}
 
 	@Kroll.method
+	public void recordError(KrollDict obj) {
+		String description = obj.getString("description");
+		String errorKey = obj.getString("key");
+		String suggestion = obj.getString("suggestion");
+		String exceptionMessage = "Description:" + description;
+
+		if (errorKey != "") {
+			exceptionMessage = exceptionMessage + "Error Key:" + errorKey;
+		}
+
+		if (suggestion != "") {
+			exceptionMessage = exceptionMessage + "Suggestion:" + suggestion;
+		}
+
+		FirebaseCrashlytics.getInstance().recordException(new RuntimeException(exceptionMessage));
+	}
+
+	@Kroll.method
 	@Kroll.setProperty
-	public void setUserId(String userId)
-	{
+	public void setUserId(String userId) {
 		FirebaseCrashlytics.getInstance().setUserId(userId);
 	}
 }
