@@ -64,4 +64,10 @@
   [[FIRCrashlytics crashlytics] recordError:error];
 }
 
+- (void)setCustomKeyValue:(id)customKey
+{
+  ENSURE_SINGLE_ARG(customKey, NSDictionary);
+  [[FIRCrashlytics crashlytics] setCustomValue:NSLocalizedString([customKey objectForKey:@"value"], nil) forKey:NSLocalizedString([customKey objectForKey:@"key"], nil)];
+}
+
 @end

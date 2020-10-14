@@ -37,11 +37,11 @@ public class TitaniumCrashlyticsModule extends KrollModule
 		String exceptionMessage = "Description:" + description;
 
 		if (errorKey != "") {
-			exceptionMessage = exceptionMessage + "Error Key:" + errorKey;
+			exceptionMessage = exceptionMessage + " Error Key:" + errorKey;
 		}
 
 		if (suggestion != "") {
-			exceptionMessage = exceptionMessage + "Suggestion:" + suggestion;
+			exceptionMessage = exceptionMessage + " Suggestion:" + suggestion;
 		}
 
 		FirebaseCrashlytics.getInstance().recordException(new RuntimeException(exceptionMessage));
@@ -51,6 +51,14 @@ public class TitaniumCrashlyticsModule extends KrollModule
 	@Kroll.setProperty
 	public void setUserId(String userId) {
 		FirebaseCrashlytics.getInstance().setUserId(userId);
+	}
+
+	@Kroll.method
+	public void setCustomKeyValue(KrollDict obj) {
+		String key = obj.getString("key");
+		String value = obj.getString("value");
+
+		FirebaseCrashlytics.getInstance().setCustomKey(key, value);
 	}
 }
 
