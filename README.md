@@ -27,11 +27,11 @@ removed and changed API's!
 ### iOS
 
 1. Create a new folder `scripts/` in your project root
-2. Inside `scripts/`, create a `script-titanium-crashlytics.sh` with the following contents (replace the version with your version):
-```sh
-# Do not run this file manually! It is referenced from your native Xcode project
-"../../modules/iphone/ti.crashlytics/1.2.1/platform/Fabric.framework/uploadDSYM" <YOUR_API_KEY> <YOUR_SECRET_KEY>
-```
+2. Inside `scripts/`, copy upload-symbols and run from:
+
+https://github.com/firebase/firebase-ios-sdk/blob/master/Crashlytics/run
+https://github.com/firebase/firebase-ios-sdk/blob/master/Crashlytics/upload-symbols
+
 3. Make sure your Firebase project is configured properly and you have your `GoogleService-Info.plist` in place, 
 as described [here](https://github.com/hansemannn/titanium-firebase).
 
@@ -39,14 +39,23 @@ as described [here](https://github.com/hansemannn/titanium-firebase).
 
 ### Android
 
-1. Add the following to the `<application>` tag inside the manifest configuration in your tiapp.xml:
+1. Copy google-services.json into `platform/android` 
 ```xml
 <meta-data android:name="io.fabric.ApiKey" android:value="YOUR_API_KEY" />
 ```
-2. Add your GUID or a random UUID to `[app]/platform/android/res/values/strings`:
+2. Remove from `[app]/platform/android/res/values/strings`:
 ```xml
+<string name="google_app_id" translatable="false">GOOGLE_SERVICES_VALUE</string>
+<string name="gcm_defaultSenderId" translatable="false">GOOGLE_SERVICES_VALUE</string>
+<string name="default_web_client_id" translatable="false">GOOGLE_SERVICES_VALUE</string>
+<string name="firebase_database_url" translatable="false">GOOGLE_SERVICES_VALUE</string>
+<string name="google_api_key" translatable="false">GOOGLE_SERVICES_VALUE</string>
+<string name="google_crash_reporting_api_key" translatable="false">GOOGLE_SERVICES_VALUE</string>
+<string name="project_id" translatable="false">GOOGLE_SERVICES_VALUE</string>
 <string name="com.crashlytics.android.build_id">RANDOM_UUID</string>
 ```
+The previous values are generated automatically while building with gradle
+
 3. You are ready to go!
 
 ## Example
@@ -65,6 +74,13 @@ Log a Custom Event to see user actions that are uniquely important for your app 
 ### `setUserIdentifier(userIdentifier)`
 
 Specify a user identifier which will be visible in the Crashlytics UI.
+
+### `recordError(errorInfo)`
+
+Record non-fatal exceptions.
+
+### `setCustomKeyValue(keyValue)`
+Custom keys help you get the specific state of your app leading up to a crash. You can associate arbitrary key/value pairs with your crash reports.
 
 ### Android only API's
 
