@@ -27,11 +27,7 @@ removed and changed API's!
 ### iOS
 
 1. Create a new folder `scripts/` in your project root
-2. Inside `scripts/`, copy upload-symbols and run from:
-
-https://github.com/firebase/firebase-ios-sdk/blob/master/Crashlytics/run
-https://github.com/firebase/firebase-ios-sdk/blob/master/Crashlytics/upload-symbols
-
+2. Copy the `run` and `upload-symbols` shell files from this repo's `helper/` directory to `scripts/` in your project
 3. Make sure your Firebase project is configured properly and you have your `GoogleService-Info.plist` in place, 
 as described [here](https://github.com/hansemannn/titanium-firebase).
 

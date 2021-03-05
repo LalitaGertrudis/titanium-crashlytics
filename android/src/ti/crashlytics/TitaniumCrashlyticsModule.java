@@ -47,18 +47,22 @@ public class TitaniumCrashlyticsModule extends KrollModule
 		FirebaseCrashlytics.getInstance().recordException(new RuntimeException(exceptionMessage));
 	}
 
-	@Kroll.method
 	@Kroll.setProperty
 	public void setUserId(String userId) {
 		FirebaseCrashlytics.getInstance().setUserId(userId);
 	}
 
-	@Kroll.method
+	@Kroll.setProperty
 	public void setCustomKeyValue(KrollDict obj) {
 		String key = obj.getString("key");
 		String value = obj.getString("value");
 
 		FirebaseCrashlytics.getInstance().setCustomKey(key, value);
+	}
+
+	@Kroll.setProperty
+	public void setCrashlyticsCollectionEnabled(boolean crashlyticsCollectionEnabled) {
+		FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(crashlyticsCollectionEnabled);
 	}
 }
 
