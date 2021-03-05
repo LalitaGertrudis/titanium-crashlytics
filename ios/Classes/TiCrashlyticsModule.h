@@ -13,4 +13,6 @@
 
 - (void)log:(id)value;
 
+- (void)recordError:(id)errorInfo;
+
 @end
