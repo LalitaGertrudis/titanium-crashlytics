@@ -40,5 +40,23 @@ public class TitaniumCrashlyticsModule extends KrollModule
 	{
 		FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(crashlyticsCollectionEnabled);
 	}
+
+	@Kroll.method
+	public void recordError(KrollDict obj) {
+		String description = obj.getString("description");
+		String errorKey = obj.getString("key");
+		String suggestion = obj.getString("suggestion");
+		String exceptionMessage = "Description:" + description;
+
+		if (errorKey != "") {
+			exceptionMessage = exceptionMessage + " Error Key:" + errorKey;
+		}
+
+		if (suggestion != "") {
+			exceptionMessage = exceptionMessage + " Suggestion:" + suggestion;
+		}
+
+		FirebaseCrashlytics.getInstance().recordException(new RuntimeException(exceptionMessage));
+	}
 }
 

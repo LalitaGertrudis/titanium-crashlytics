@@ -47,4 +47,21 @@
   assert(NO); // Forces a crash
 }
 
+- (void)recordError:(id)errorInfo
+{
+  ENSURE_SINGLE_ARG(errorInfo, NSDictionary);
+
+  NSDictionary *userInfo = @{
+    NSLocalizedDescriptionKey: NSLocalizedString([errorInfo objectForKey:@"description"], nil),
+    NSLocalizedFailureReasonErrorKey: NSLocalizedString([errorInfo objectForKey:@"key"], nil),
+    NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString([errorInfo objectForKey:@"suggestion"], nil)
+  };
+
+  NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
+    code:-1001
+    userInfo:userInfo];
+
+  [[FIRCrashlytics crashlytics] recordError:error];
+}
+
 @end
